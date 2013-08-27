@@ -101,31 +101,33 @@ void Player::play_turn(uint roll) {
 // Roll the dice and do the appropriate actions if in jail
 void Player::roll_dice(uint successive_doubles) {
     
+    // Roll both dice
+    uint d1 = roll_die();
+    uint d2 = roll_die();
+    
+    bool doubles = (d1 == d2);
+    
     // If the player has rolled doubles thrice in a row, go to jail
-    if (successive_doubles == 3) {
+    if (doubles && (successive_doubles == 2)) {
         goToJail();
         return;
     }
     
-    uint d1 = roll_die();
-    uint d2 = roll_die();
-    bool doubles = (d1 == d2);
-        
-    /* If the player is free, has a card, or has pays to leave jail: */
+    /* If the player is free, has a card, or pays to leave jail: */
     if (!jailed() || use_card() || pay_fine()) {
         
         play_turn(d1 + d2);
         // If doubles were rolled, roll again
         if (doubles) roll_dice(++successive_doubles);
         
-    // If the player is in jail but rolls doubles:
+        // If the player is in jail but rolls doubles:
     } else if (jailed() && doubles) {
         _jailed = 0;
         play_turn(d1 + d2);
         
-    // If the player remains in jail:
+        // If the player remains in jail:
     } else _jailed--;
-
+    
 }
         
 // Use a get out of jail free card to leave jail
