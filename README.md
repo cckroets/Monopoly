@@ -11,4 +11,4 @@ If they rolled doubles they may roll again. Rolling doubles three times in a row
 
 A player may land on 'Community Chest' or 'Chance' which could send the player to a different spot on the board. 
 
-A sample distribution is included in the 'MonopDist' file.
+A sample distribution is included in the 'MonopolyDist' file.
